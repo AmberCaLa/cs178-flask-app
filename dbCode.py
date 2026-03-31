@@ -2,8 +2,8 @@
 # Author: Your Name
 # Helper functions for database connection and queries
 
-import pymysql
-import creds
+#import pymysql
+#import creds
 
 def get_conn():
     """Returns a connection to the MySQL RDS instance."""
