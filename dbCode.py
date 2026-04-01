@@ -1,5 +1,5 @@
 # dbCode.py
-# Author: Your Name
+# Author: Amber Lange
 # Helper functions for database connection and queries
 
 #import pymysql
