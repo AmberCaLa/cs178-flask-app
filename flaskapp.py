@@ -65,7 +65,7 @@ def view_movies():
         FROM movie
         LIMIT 20
     """)
-    return render_template("view-movies.html", movies = rows)
+    return render_template("view_movies.html", movies = rows)
 
 
 @app.route('/find-movie', methods = ['GET', 'POST'])
