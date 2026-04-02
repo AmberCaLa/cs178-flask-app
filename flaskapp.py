@@ -11,9 +11,59 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key' # this is an artifact for using flash displays; 
                                    # it is required, but you can leave this alone
 
+def get_connection():
+    """Opens and returns a connection to the RDS MySQL database."""
+    return pymysql.connect(
+        host=creds.host,
+        user=creds.user,
+        password=creds.password,
+        db=creds.db
+    )
+
+def execute_query(query, args=()):
+    """
+    Runs a SQL query and returns all result rows as a list of tuples.
+    Always use parameterized queries (args) when inserting user input —
+    never build SQL strings with f-strings or concatenation.
+    """
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute(query, args)
+    rows = cursor.fetchall()
+    conn.close()
+    return rows
+
+def display_html(rows):
+    """
+    Converts query result rows into a simple HTML table string.
+    Flask routes can return this directly as a response.
+    """
+    html = "<table border='1'>"
+    for row in rows:
+        html += "<tr>"
+        for col in row:
+            html += f"<td>{col}</td>"
+        html += "</tr>"
+    html += "</table>"
+    return html
+
 @app.route('/')
 def home():
     return render_template('home.html')
+
+@app.route("/view-movies")
+def view_movies():
+    """
+    Fetches the first 20 tracks from the movie database
+    and returns them as an HTML table.
+    Route: /view-movies
+    """
+    rows = execute_query("""
+        SELECT title 
+        FROM movie
+        LIMIT 20
+    """)
+    return display_html(rows)
 
 
 @app.route('/find-movie', methods = ['GET', 'POST'])
@@ -21,10 +71,11 @@ def find_movie():
     if request.method == 'POST':
         name = request.form["name"]
 
-        print(f"Here is the information on {name}")
+        return 
 
     else:
         return render_template('find_movie.html')
+
 
 @app.route('/add-user', methods=['GET', 'POST'])
 def add_user():
