@@ -15,6 +15,12 @@ app.secret_key = 'your_secret_key' # this is an artifact for using flash display
 def home():
     return render_template('home.html')
 
+
+@app.route('/find-movie', methods = ['GET', 'POST'])
+def find_movie():
+    if request.method == 'POST':
+        name = request.form["name"]
+        
 @app.route('/add-user', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
