@@ -61,11 +61,11 @@ def view_movies():
     Route: /view-movies
     """
     rows = execute_query("""
-        SELECT title 
+        SELECT movie_id, title 
         FROM movie
         LIMIT 20
     """)
-    return display_html(rows)
+    return render_template("view-movies.html", movies = rows)
 
 
 @app.route('/find-movie', methods = ['GET', 'POST'])
