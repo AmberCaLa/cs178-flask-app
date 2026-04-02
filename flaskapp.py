@@ -20,7 +20,12 @@ def home():
 def find_movie():
     if request.method == 'POST':
         name = request.form["name"]
-        
+
+        print(f"Here is the information on {name}")
+
+    else:
+        return render_template('find_movie.html')
+
 @app.route('/add-user', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
