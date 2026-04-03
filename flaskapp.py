@@ -73,7 +73,13 @@ def find_movie():
     if request.method == 'POST':
         name = request.form["name"]
 
-        return 
+        rows = execute_query("""
+            SELECT movie_id, title
+            FROM movie
+            WHERE title = %s""",
+        (name,))
+
+        return render_template("view_found_movie.html", movie = rows)
 
     else:
         return render_template('find_movie.html')
