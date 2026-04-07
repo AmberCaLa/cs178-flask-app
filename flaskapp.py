@@ -74,8 +74,10 @@ def find_movie():
         name = request.form["name"]
 
         rows = execute_query("""
-            SELECT movie_id, title
-            FROM movie
+            SELECT movie_id, title, genre_name, release_date
+            FROM movie as M
+            JOIN movie_genre USING (movie_id)
+            JOIN genre USING (genre_id)
             WHERE title = %s""",
         (name,))
 
@@ -85,21 +87,17 @@ def find_movie():
         return render_template('find_movie.html')
 
 
-@app.route('/add-user', methods=['GET', 'POST'])
-def add_user():
+@app.route('/add-movie', methods=['GET', 'POST'])
+def add_movie():
     if request.method == 'POST':
-        # Extract form data
-        first = request.form["first"]
-        last = request.form["last"]
-        genre = request.form['genre']
-        
-        # Process the data (e.g., add it to a database)
-        # For now, let's just print it to the console
-        print("First Name:", first, ":", "Last Name:", last, ":", "Favorite Genre:", genre)
-        
-        flash('User added successfully! Huzzah!', 'success')  # 'success' is a category; makes a green banner at the top
-        # Redirect to home page or another page upon successful submission
-        return redirect(url_for('home'))
+        id = request.form['id']
+        name = request.form["first"]
+        genre = request.form["last"]
+        release = request.form['release']
+                
+        flash('Movie added successfully! Thank you for your contribution!', 'success')  
+
+        return redirect(url_for('home.html'))
     else:
         # Render the form page if the request method is GET
         return render_template('add_user.html')
