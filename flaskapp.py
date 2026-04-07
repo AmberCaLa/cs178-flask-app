@@ -55,16 +55,11 @@ def home():
 
 @app.route("/view-movies")
 def view_movies():
-    """
-    Fetches the first 20 tracks from the movie database
-    and returns them as an HTML table.
-    Route: /view-movies
-    """
     rows = execute_query("""
         SELECT movie.movie_id, title, genre_name, release_date, popularity
         FROM movie
-        JOIN movie_genre ON movie.movie_id=movie_genre.movie_id
-        JOIN genre ON movie_genre.genre_id=genre.genre_id
+        JOIN movie_genres ON movie.movie_id=movie_genres.movie_id
+        JOIN genre ON movie_genres.genre_id=genre.genre_id
         LIMIT 50
     """)
     return render_template("view_movies.html", movies = rows)
@@ -78,10 +73,10 @@ def find_movie():
         rows = execute_query("""
             SELECT movie.movie_id, title, genre_name, release_date, popularity
             FROM movie 
-            JOIN movie_genre 
-                ON movie.movie_id = movie_genre.movie_id
+            JOIN movie_genres 
+                ON movie.movie_id = movie_genres.movie_id
             JOIN genre 
-                ON movie_genre.genre_id = genre.genre_id
+                ON movie_genres.genre_id = genre.genre_id
             WHERE title = %s""",
         (name,))
 
