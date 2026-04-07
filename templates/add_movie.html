@@ -1,12 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>What movie would you like to add?</title>
+    <title>Add New Movie</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   </head>
   <body>
     <a href="/" class = "btn btn-primary">Return</a>
-    <h1>Add New Movie</h1>
+    <h1>What movie would you like to add?</h1>
     <form action="{{ url_for('add_movie') }}" method="post">
       <label for="id">Movie ID:</label><br />
       <input type="text" id="id" name="id" required /><br />
