@@ -98,12 +98,12 @@ def add_movie():
         name = request.form["first"]
         genre = request.form["last"]
         release = request.form['release']
+        popularity = request.form['popularity']
                 
         flash('Movie added successfully! Thank you for your contribution!', 'success')  
 
         return redirect(url_for('home.html'))
     else:
-        # Render the form page if the request method is GET
         return render_template('add_movie.html')
 
 @app.route('/delete-user',methods=['GET', 'POST'])
