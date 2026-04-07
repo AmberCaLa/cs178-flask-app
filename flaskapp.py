@@ -56,10 +56,11 @@ def home():
 @app.route("/view-movies")
 def view_movies():
     rows = execute_query("""
-        SELECT movie.movie_id, title, genre_name, release_date, popularity
+        SELECT movie.movie_id, title, GROUP_CONCAT(genre_name SEPARATOR ', ') AS genres, release_date, popularity
         FROM movie
         JOIN movie_genres ON movie.movie_id=movie_genres.movie_id
         JOIN genre ON movie_genres.genre_id=genre.genre_id
+        GROUP BY movie.movie_id, title, release_date, popularity
         LIMIT 50
     """)
     return render_template("view_movies.html", movies = rows)
@@ -71,13 +72,14 @@ def find_movie():
         name = request.form["name"]
 
         rows = execute_query("""
-            SELECT movie.movie_id, title, genre_name, release_date, popularity
+            SELECT movie.movie_id, title, GROUP_CONCAT(genre_name SEPARATOR ', ') AS genres, release_date, popularity
             FROM movie 
             JOIN movie_genres 
                 ON movie.movie_id = movie_genres.movie_id
             JOIN genre 
                 ON movie_genres.genre_id = genre.genre_id
-            WHERE title = %s""",
+            WHERE title = %s
+            GROUP BY movie.movie_id, title, release_date, popularity""",
         (name,))
 
         return render_template("view_found_movie.html", movie = rows)
