@@ -61,9 +61,11 @@ def view_movies():
     Route: /view-movies
     """
     rows = execute_query("""
-        SELECT movie_id, title 
+        SELECT movie_id, title, genre_name, release_date, popularity
         FROM movie
-        LIMIT 20
+        JOIN movie_genre ON movie.movie_id=movie_genre.movie_id
+        JOIN genre ON movie_genre.genre_id=genre.genre_id
+        LIMIT 50
     """)
     return render_template("view_movies.html", movies = rows)
 
