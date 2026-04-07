@@ -17,6 +17,9 @@
                 <tr>
                     <th>Movie ID</th>
                     <th>Title</th>
+                    <th>Genre</th>
+                    <th>Release Date</th>
+                    <th>Popularity</th>
                 </tr>
             </thead>
             <tbody> <!-- table body -- loop through all of the users -->
@@ -26,6 +29,7 @@
                     <td>{{ info[1] }}</td>
                     <td>{{ info[2] }}</td>
                     <td>{{ info[3] }}</td>
+                    <td>{{ info[4] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
