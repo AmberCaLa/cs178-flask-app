@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Add New Movie</title>
+  </head>
+  <body>
+    <h1>Add New Movie</h1>
+    <form action="{{ url_for('add_user') }}" method="post">
+      <label for="id">Movie ID:</label><br />
+      <input type="text" id="id" name="id" required /><br />
+      <label for="name">Movie Name:</label><br />
+      <input type="test" id="name" name="name" required /><br />
+      <label for="genre">Movie Genre:</label><br />
+      <input type="text" id="genre" name="genre" required /><br />
+      <label for="release">Movie Release Date:</label><br />
+      <input type="text" id="release" name="release" required /><br />
+      <label for="popularity">Movie Popularity:</label><br />
+      <input type="text" id="popularity" name="popularity" required /><br />
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>

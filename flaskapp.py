@@ -104,7 +104,7 @@ def add_movie():
         return redirect(url_for('home.html'))
     else:
         # Render the form page if the request method is GET
-        return render_template('add_user.html')
+        return render_template('add_movie.html')
 
 @app.route('/delete-user',methods=['GET', 'POST'])
 def delete_user():
