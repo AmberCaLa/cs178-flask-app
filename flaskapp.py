@@ -61,7 +61,7 @@ def view_movies():
     Route: /view-movies
     """
     rows = execute_query("""
-        SELECT movie_id, title, genre_name, release_date, popularity
+        SELECT movie.movie_id, title, genre_name, release_date, popularity
         FROM movie
         JOIN movie_genre ON movie.movie_id=movie_genre.movie_id
         JOIN genre ON movie_genre.genre_id=genre.genre_id
@@ -76,7 +76,7 @@ def find_movie():
         name = request.form["name"]
 
         rows = execute_query("""
-            SELECT movie_id, title, genre_name, release_date
+            SELECT movie.movie_id, title, genre_name, release_date, popularity
             FROM movie 
             JOIN movie_genre 
                 ON movie.movie_id = movie_genre.movie_id
