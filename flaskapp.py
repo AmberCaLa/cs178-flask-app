@@ -107,7 +107,7 @@ def add_movie():
         return render_template('add_movie.html')
 
 @app.route('/delete-movie',methods=['GET', 'POST'])
-def delete_user():
+def delete_movie():
     if request.method == 'POST':
         name = request.form['name']
 
