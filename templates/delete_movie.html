@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Delete Movie</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  <body>
+    <a href="/" class = "btn btn-primary">Return</a>
+    <h1>What movie would you like to delete?</h1>
+    <form action="{{ url_for('delete_movie') }}" method="post">
+      <label for="name">Movie Name:</label><br />
+      <input type="text" id="name" name="name" required /><br />
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
