@@ -75,9 +75,9 @@ def find_movie():
 
         rows = execute_query("""
             SELECT movie_id, title, genre_name, release_date
-            FROM movie 
-            JOIN movie_genre USING (movie_id)
-            JOIN genre USING (genre_id)
+            FROM movie AS M
+            JOIN movie_genre AS MG ON M.movie_id = MG.movie_id
+            JOIN genre AS G ON MG.genre_id = G.genre_id
             WHERE title = %s""",
         (name,))
 
