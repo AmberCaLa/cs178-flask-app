@@ -24,7 +24,8 @@ def add_movie():
         name = request.form['name']
         release = request.form['release']
 
-        add_movie(id, name, release)
+        #add_movie(id, name, release)
+        print("maybe")
 
         flash('Movie successfully added to database! Thank you for your contribution!', 'success')  
 
