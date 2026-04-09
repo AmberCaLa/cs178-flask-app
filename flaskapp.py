@@ -1,69 +1,44 @@
-# author: T. Urness and M. Moore
-# description: Flask example using redirect, url_for, and flash
-# credit: the template html files were constructed with the help of ChatGPT
+# author: Amber Lange
+# description: Flask movie database website
+# credit: Project based off examples from Professors Urness and Moore
 
 from flask import Flask
 from flask import render_template
 from flask import Flask, render_template, request, redirect, url_for, flash
 from dbCode import *
-import pymysql
-import creds
+
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key' # this is an artifact for using flash displays; 
-                                   # it is required, but you can leave this alone
+app.secret_key = 'your_secret_key' 
 
-def get_connection():
-    """Opens and returns a connection to the RDS MySQL database."""
-    return pymysql.connect(
-        host=creds.host,
-        user=creds.user,
-        password=creds.password,
-        db=creds.db
-    )
-
-def execute_query(query, args=()):
-    """
-    Runs a SQL query and returns all result rows as a list of tuples.
-    Always use parameterized queries (args) when inserting user input —
-    never build SQL strings with f-strings or concatenation.
-    """
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute(query, args)
-    rows = cursor.fetchall()
-    conn.close()
-    return rows
-
-def display_html(rows):
-    """
-    Converts query result rows into a simple HTML table string.
-    Flask routes can return this directly as a response.
-    """
-    html = "<table border='1'>"
-    for row in rows:
-        html += "<tr>"
-        for col in row:
-            html += f"<td>{col}</td>"
-        html += "</tr>"
-    html += "</table>"
-    return html
 
 @app.route('/')
 def home():
     return render_template('home.html')
 
+
+@app.route("/add-movie")
+def add_movie():
+    if request.method == 'POST':
+        id = request.form['id']
+        name = request.form['name']
+        release = request.form['release']
+
+        add_movie(id, name, release)
+
+        flash('Movie successfully added to database! Thank you for your contribution!', 'success')  
+
+        return redirect(url_for('home.html'))
+    else:
+        return render_template('add_movie.html')
+
+
 @app.route("/view-movies")
 def view_movies():
-    rows = execute_query("""
-        SELECT movie.movie_id, title, GROUP_CONCAT(genre_name SEPARATOR ', ') AS genres, release_date, popularity
-        FROM movie
-        JOIN movie_genres ON movie.movie_id=movie_genres.movie_id
-        JOIN genre ON movie_genres.genre_id=genre.genre_id
-        GROUP BY movie.movie_id, title, release_date, popularity
-        LIMIT 50
-    """)
-    return render_template("view_movies.html", movies = rows)
+    
+    viewed = view_movies_query()
+
+    return render_template("view_movies.html", movies = viewed)
 
 
 @app.route('/find-movie', methods = ['GET', 'POST'])
@@ -71,37 +46,14 @@ def find_movie():
     if request.method == 'POST':
         name = request.form["name"]
 
-        rows = execute_query("""
-            SELECT movie.movie_id, title, GROUP_CONCAT(genre_name SEPARATOR ', ') AS genres, release_date, popularity
-            FROM movie 
-            JOIN movie_genres 
-                ON movie.movie_id = movie_genres.movie_id
-            JOIN genre 
-                ON movie_genres.genre_id = genre.genre_id
-            WHERE title = %s
-            GROUP BY movie.movie_id, title, release_date, popularity""",
-        (name,))
+        found = find_movie_query(name)
 
-        return render_template("view_found_movie.html", movie = rows)
+        return render_template("view_found_movie.html", movie = found)
 
     else:
         return render_template('find_movie.html')
 
 
-@app.route('/add-movie', methods=['GET', 'POST'])
-def add_movie():
-    if request.method == 'POST':
-        id = request.form['id']
-        name = request.form["first"]
-        genre = request.form["last"]
-        release = request.form['release']
-        popularity = request.form['popularity']
-                
-        flash('Movie added successfully! Thank you for your contribution!', 'success')  
-
-        return redirect(url_for('home.html'))
-    else:
-        return render_template('add_movie.html')
 
 @app.route('/delete-movie',methods=['GET', 'POST'])
 def delete_movie():
@@ -115,12 +67,28 @@ def delete_movie():
         return render_template('delete_movie.html')
 
 
-@app.route('/display-users')
-def display_users():
-    # hard code a value to the users_list;
-    # note that this could have been a result from an SQL query :) 
-    users_list = (('John','Doe','Comedy'),('Jane', 'Doe','Drama'))
-    return render_template('display_users.html', users = users_list)
+@app.route('/complete-movies')
+def complete_movies():
+    return render_template('complete_movies.html')
+
+@app.route('/add-complete-movie', methods=['GET', 'POST'])
+def add_complete_movie():
+    if request.method == 'POST':
+        user_name = request.form['user_name']
+        movie_name = request.form["movie_name"]
+        rating = request.form['rating']
+        review = request.form['review']
+                
+        complete_movie(user_name, movie_name, rating, review)
+
+        flash('Completed movie recorded!', 'success')  
+
+        return redirect(url_for('home.html'))
+    else:
+        return render_template('add_complete_movie.html')
+
+
+
 
 
 # these two lines of code should always be the last in the file

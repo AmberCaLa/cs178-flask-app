@@ -2,11 +2,18 @@
 # Author: Amber Lange
 # Helper functions for database connection and queries
 
-#import pymysql
-#import creds
+import pymysql
+import creds
+import boto3
+
+
+#Relational Database
 
 def get_conn():
-    """Returns a connection to the MySQL RDS instance."""
+    """
+    Returns a connection to the MySQL RDS instance.
+    """
+
     conn = pymysql.connect(
         host=creds.host,
         user=creds.user,
@@ -16,9 +23,100 @@ def get_conn():
     return conn
 
 def execute_query(query, args=()):
-    """Executes a SELECT query and returns all rows as dictionaries."""
+    """
+    Executes a SELECT query and returns all rows as dictionaries.
+    """
+
     cur = get_conn().cursor(pymysql.cursors.DictCursor)
     cur.execute(query, args)
     rows = cur.fetchall()
     cur.close()
     return rows
+
+
+#The following function was generate with help from Claude
+def insert(query, args=()):
+    """
+    Executes an INSERT query and saves changes to database
+    """
+
+    cur = get_conn().cursur(pymysql.cursors.DictCursor)
+    cur.execute(query, args)
+    cur.commit()
+    cur.close()
+
+
+def view_movies_query():
+    """
+    Displays the first 50 movies in the database with theirnids, titles, genres, release_date, and popularity.
+    """
+    
+    rows = execute_query("""
+        SELECT movie.movie_id, title, GROUP_CONCAT(genre_name SEPARATOR ', ') AS genres, release_date, popularity
+        FROM movie
+        JOIN movie_genres ON movie.movie_id=movie_genres.movie_id
+        JOIN genre ON movie_genres.genre_id=genre.genre_id
+        GROUP BY movie.movie_id, title, release_date, popularity
+        LIMIT 50""")
+    
+    return(rows)
+
+
+def find_movie_query(name):
+    """
+    Displays the id, title, genres, release date, and popularity of a specific movies.
+    """
+    
+    rows = execute_query("""
+            SELECT movie.movie_id, title, GROUP_CONCAT(genre_name SEPARATOR ', ') AS genres, release_date, popularity
+            FROM movie 
+            JOIN movie_genres 
+                ON movie.movie_id = movie_genres.movie_id
+            JOIN genre 
+                ON movie_genres.genre_id = genre.genre_id
+            WHERE title = %s
+            GROUP BY movie.movie_id, title, release_date, popularity""",
+        (name,))
+    
+    return(rows)
+    
+
+def add_movie(id, name, release):
+    """
+    Inserts the id, title, release date of a movie into the movie table.
+    """
+
+    insert("""
+        INSERT INTO movie(movie_id, title, release_date)
+        VALUES (%s, %s, %s)
+        """
+    (id, name, release, ))
+
+
+
+
+#Non-Relational Database
+
+def get_table():
+    """
+    Return a reference to the DynamoDB CompletedMovies table.
+    """
+
+    dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
+    return dynamodb.Table("CompletedMovies")
+
+
+def complete_movie(user, movie, rating, review):
+    """
+    Adds a movie that the user completed with a rating and review.
+    """
+
+    table = get_table()
+    table.put_item(
+        Item = {
+        'User': user,
+        'Movies' : {
+            movie :{
+            'Rating' : rating,
+            'Review' : review
+        }}})
