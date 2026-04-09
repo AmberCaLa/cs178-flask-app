@@ -28,7 +28,7 @@ def add_movie():
 
         flash('Movie successfully added to database! Thank you for your contribution!', 'success')  
 
-        return redirect(url_for('home.html'))
+        return redirect(url_for('home'))
     else:
         return render_template('add_movie.html')
 
