@@ -4,7 +4,6 @@
 
 import pymysql
 import creds
-import boto3
 
 
 #Relational Database
@@ -91,32 +90,3 @@ def add_movie(id, name, release):
         VALUES (%s, %s, %s)
         """
     (id, name, release, ))
-
-
-
-
-#Non-Relational Database
-
-def get_table():
-    """
-    Return a reference to the DynamoDB CompletedMovies table.
-    """
-
-    dynamodb = boto3.resource("dynamodb", region_name='us-east-1')
-    return dynamodb.Table("CompletedMovies")
-
-
-def complete_movie(user, movie, rating, review):
-    """
-    Adds a movie that the user completed with a rating and review.
-    """
-
-    table = get_table()
-    table.put_item(
-        Item = {
-        'User': user,
-        'Movies' : {
-            movie :{
-            'Rating' : rating,
-            'Review' : review
-        }}})
