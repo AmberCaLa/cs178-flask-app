@@ -26,7 +26,7 @@ def execute_query(query, args=()):
     Executes a SELECT query and returns all rows as dictionaries.
     """
 
-    cur = get_conn().cursor(pymysql.cursors.DictCursor)
+    cur = get_conn().cursor()
     cur.execute(query, args)
     rows = cur.fetchall()
     cur.close()
