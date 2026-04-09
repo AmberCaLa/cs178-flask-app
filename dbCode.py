@@ -34,12 +34,12 @@ def execute_query(query, args=()):
 
 
 #The following function was generate with help from Claude
-def insert(query, args=()):
+def db_changes(query, args=()):
     """
-    Executes an INSERT query and saves changes to database
+    Executes a change to database
     """
 
-    cur = get_conn().cursur()
+    cur = get_conn().cursur(pymysql.cursors.DictCursor)
     cur.execute(query, args)
     cur.commit()
     cur.close()
@@ -80,15 +80,15 @@ def find_movie_query(name):
     return(rows)
     
 
-def add_movie(id, name, release):
+def insert_movie(id, name, release):
     """
     Inserts the id, title, release date of a movie into the movie table.
     """
 
-    insert("""
+    db_changes("""
         INSERT INTO movie(movie_id, title, release_date)
         VALUES (%s, %s, %s)
         """
     (id, name, release, ))
 
-    return "Added"
+    return "Inserted"

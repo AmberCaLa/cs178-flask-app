@@ -24,12 +24,11 @@ def add_movie():
         name = request.form['name']
         release = request.form['release']
 
-        #add_movie(id, name, release)
-        print("maybe")
+        insert_movie(id, name, release)
 
         flash('Movie successfully added to database! Thank you for your contribution!', 'success')  
 
-        return render_template('home.html')
+        return redirect(url_for('home'))
     else:
         return render_template('add_movie.html')
 
