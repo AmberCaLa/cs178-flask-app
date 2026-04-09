@@ -39,10 +39,12 @@ def db_changes(query, args=()):
     Executes a change to database
     """
 
-    cur = get_conn().cursur(pymysql.cursors.DictCursor)
+    conn = get_conn()
+    cur = conn.cursur(pymysql.cursors.DictCursor)
     cur.execute(query, args)
-    cur.commit()
+    conn.commit()
     cur.close()
+    conn.close()
 
 
 def view_movies_query():
