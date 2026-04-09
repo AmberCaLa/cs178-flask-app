@@ -90,3 +90,5 @@ def add_movie(id, name, release):
         VALUES (%s, %s, %s)
         """
     (id, name, release, ))
+
+    return "Added"
