@@ -26,7 +26,7 @@ def execute_query(query, args=()):
     Executes a SELECT query and returns all rows as dictionaries.
     """
 
-    cur = get_conn().cursor()
+    cur = get_conn().cursor(pymysql.cursors.DictCursor)
     cur.execute(query, args)
     rows = cur.fetchall()
     cur.close()
@@ -39,7 +39,7 @@ def insert(query, args=()):
     Executes an INSERT query and saves changes to database
     """
 
-    cur = get_conn().cursur(pymysql.cursors.DictCursor)
+    cur = get_conn().cursur()
     cur.execute(query, args)
     cur.commit()
     cur.close()
