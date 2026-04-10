@@ -17,7 +17,7 @@ def home():
     return render_template('home.html')
 
 
-@app.route("/add-movie")
+@app.route("/add-movie", methods = ['GET', 'POST'])
 def add_movie():
     if request.method == 'POST':
         id = request.form['id']
