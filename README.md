@@ -118,22 +118,23 @@ The JOIN query used in this project: joined the `movies table` to the `movie_gen
 
 ## CRUD Operations
 
-| Operation | Route           | Description                                       |
-| --------- | --------------- | ------------------------------------------------- |
-| Create    | `/add-movie`    | Adds a movie to the database                      |  
-| Read      | `/view-movies`  | Shows user first 50 movies in database            |
-| Update    | `/update-movie` | Allows a user to update a movies popularity       |
-| Delete    | `/delete-movie` | Allows a user to delete a movie from the database |
+| Operation | Route                      | Description                                                 | 
+| --------- | -------------------------- | ----------------------------------------------------------- |
+| Create    | `/add-complete-movie`      | Adds a new user with their first review                     |  
+| Read      | `/view-complete-movies`    | Shows all user reviews                                      |
+| Update    | `/update-completed-movies` | Allows a user to add a new review                           |
+| Delete    | `/delete-reviews`          | Deletes all reviews from a user                             |
 
 ---
 
 ## Challenges and Insights
 
 <!-- What was the hardest part? What did you learn? Any interesting design decisions? -->
+The hardest part of this project was trying to add a movie to the relational database. I had originally gotten my querries in the relational database to work. When I tried to add to this database the querries broke and I wasn't sure how to fix them in the end. I assume this has something to do with the design of the database and how data is allowed to be added.
 
 ---
 
 ## AI Assistance
 
 <!-- List any AI tools you used (e.g., ChatGPT) and briefly describe what you used them for. Per course policy, AI use is allowed but must be cited in code comments and noted here. -->
-Used Claude to assist in generating a helper function to add movies to the database
+Claude was used to assist in generating a helper function to add movies to the database.

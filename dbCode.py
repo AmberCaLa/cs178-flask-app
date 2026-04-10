@@ -34,18 +34,18 @@ def execute_query(query, args=()):
     return rows
 
 
-#The following function was generated with help from Claude
-def db_changes(query, args=()):
-    """
-    Executes a change to database
-    """
-
-    conn = get_conn()
-    cur = conn.cursor(pymysql.cursors.DictCursor)
-    cur.execute(query, args)
-    conn.commit()
-    cur.close()
-    conn.close()
+#The following function was generated with help from Claude but didn't end up being used
+#def db_changes(query, args=()):
+#    """
+#    Executes a change to database
+#    """
+#
+#    conn = get_conn()
+#    cur = conn.cursor(pymysql.cursors.DictCursor)
+#    cur.execute(query, args)
+#    conn.commit()
+#    cur.close()
+#    conn.close()
 
 
 def view_movies_query():
@@ -83,18 +83,19 @@ def find_movie_query(name):
     return(rows)
     
 
-def insert_movie(id, name, release):
-    """
-    Inserts the id, title, release date of a movie into the movie table.
-    """
-
-    db_changes("""
-        INSERT INTO movie(movie_id, title, release_date)
-        VALUES (%s, %s, %s)
-        """,
-    (id, name, release, ))
-
-    return 
+"""Somehow broke find_movie_query and view_movie_query"""
+#def insert_movie(id, name, release):
+#    """
+#    Inserts the id, title, release date of a movie into the movie table.
+#    """
+#
+#    db_changes("""
+#        INSERT INTO movie(movie_id, title, release_date)
+#        VALUES (%s, %s, %s)
+#        """,
+#    (id, name, release, ))
+#
+#    return 
 
 
 #Non-Relational Database

@@ -17,7 +17,11 @@ def home():
     return render_template('home.html')
 
 
-@app.route("/add-movie", methods = ['GET', 'POST'])
+#Relational Database
+
+
+#Somehow broke my view_movies and find_movie functions
+"""@app.route("/add-movie", methods = ['GET', 'POST'])
 def add_movie():
     if request.method == 'POST':
         id = request.form['id']
@@ -30,7 +34,7 @@ def add_movie():
 
         return redirect(url_for('home'))
     else:
-        return render_template('add_movie.html')
+        return render_template('add_movie.html')"""
 
 
 @app.route("/view-movies")
@@ -54,17 +58,7 @@ def find_movie():
         return render_template('find_movie.html')
 
 
-
-@app.route('/delete-movie',methods=['GET', 'POST'])
-def delete_movie():
-    if request.method == 'POST':
-        name = request.form['name']
-
-        flash('Movie removed successfully.', 'warning') 
-
-        return redirect(url_for('home'))
-    else:
-        return render_template('delete_movie.html')
+#Non-Relational Database
 
 
 @app.route('/complete-movies')
@@ -110,6 +104,7 @@ def view_complete_movies():
     data = return_all_movies()
 
     return render_template('view_complete_movies.html', data = data)
+
 
 @app.route('/delete-reviews', methods=['GET', 'POST'])
 def delete_reviews():
