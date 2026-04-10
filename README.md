@@ -8,6 +8,7 @@
 
 ## Overview
 
+This project is a movie database. It allows users to search an existing database of movies. Users are also able to track movies they have completed along with their ratings of each movie.
 <!-- Describe your project in 2-4 sentences. What does it do? Who is it for? What problem does it solve? -->
 
 ---
@@ -16,8 +17,8 @@
 
 - **Flask** — Python web framework
 - **AWS EC2** — hosts the running Flask application
-- **AWS RDS (MySQL)** — relational database for [describe what you stored]
-- **AWS DynamoDB** — non-relational database for [describe what you stored]
+- **AWS RDS (MySQL)** — relational database for movies
+- **AWS DynamoDB** — non-relational database for movies completed by users
 - **GitHub Actions** — auto-deploys code from GitHub to EC2 on push
 
 ---
@@ -101,29 +102,30 @@ db = "your-database-name"
 
 **Example:**
 
-- `[TableName]` — stores [description]; primary key is `[key]`
-- `[TableName]` — stores [description]; foreign key links to `[other table]`
+- `movies` — stores movies ids, titles, release dates, and popularity; primary key is `movie_id`
+- `movie_genres` — stores movie ids and genre ids; primary key is composite of `movie_id` and `genre_id`  
+- `genre` — stores genre ids and corresponding genre names; primary key is to `genre_id`
 
-The JOIN query used in this project: <!-- describe it in plain English -->
+The JOIN query used in this project: joined the `movies table` to the `movie_genres` table on `movie_id` then joined `movie_genres` table to `genre` table on `genre_id` to get every genre corresponding to each movie.
 
 ### DynamoDB
 
 <!-- Describe your DynamoDB table. What is the partition key? What attributes does each item have? How does it connect to the rest of the app? -->
 
-- **Table name:** `[your-table-name]`
-- **Partition key:** `[key-name]`
-- **Used for:** [description]
+- **Table name:** `CompletedMovies`
+- **Partition key:** `User`
+- **Used for:** Storing the completed movies for each user and their rating for each movie
 
 ---
 
 ## CRUD Operations
 
-| Operation | Route      | Description    |
-| --------- | ---------- | -------------- |
-| Create    | `/[route]` | [what it does] |
-| Read      | `/[route]` | [what it does] |
-| Update    | `/[route]` | [what it does] |
-| Delete    | `/[route]` | [what it does] |
+| Operation | Route           | Description                                       |
+| --------- | --------------- | ------------------------------------------------- |
+| Create    | `/add-movie`    | Adds a movie to the database                      |  
+| Read      | `/view-movies`  | Shows user first 50 movies in database            |
+| Update    | `/update-movie` | Allows a user to update a movies popularity       |
+| Delete    | `/delete-movie` | Allows a user to delete a movie from the database |
 
 ---
 
@@ -136,3 +138,4 @@ The JOIN query used in this project: <!-- describe it in plain English -->
 ## AI Assistance
 
 <!-- List any AI tools you used (e.g., ChatGPT) and briefly describe what you used them for. Per course policy, AI use is allowed but must be cited in code comments and noted here. -->
+Used Claude to assist in generating a helper function to add movies to the database
