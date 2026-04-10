@@ -111,6 +111,19 @@ def view_complete_movies():
 
     return render_template('view_complete_movies.html', data = data)
 
+@app.route('/delete-reviews', methods=['GET', 'POST'])
+def delete_reviews():
+    if request.method == 'POST':
+        user = request.form['user']
+
+        delete_reviews(user)
+
+        flash('Reviews deleted!', 'success') 
+
+        return redirect(url_for('home'))
+    else:
+        return render_template('delete_reviews.html')
+
 
 # these two lines of code should always be the last in the file
 if __name__ == '__main__':

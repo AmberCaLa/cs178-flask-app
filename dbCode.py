@@ -156,5 +156,18 @@ def update_completed(user, movie_title, rating, review):
                 'Rating' : rating,
                 'Review' : review
             }})
+        return
+    
     except:
         print("error adding completed movie")
+
+
+def delete_reviews(user):
+    table = get_table
+
+    table.delete_item(
+        Key = {
+            'User' : user
+        })
+    
+    return

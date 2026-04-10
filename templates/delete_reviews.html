@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Delete Reviews</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  <body>
+    <a href="/" class = "btn btn-primary">Return</a>
+    <h1>Please enter your user to delete your reviews.</h1>
+    <form action="{{ url_for('delete_reviews') }}" method="post">
+      <label for="user">What is your username?:</label><br />
+      <input type="text" id="user" name="user" required /><br />
+      <input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>
