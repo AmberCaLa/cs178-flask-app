@@ -84,10 +84,10 @@ Create a file called `creds.py` in the project root with the following format (s
 
 ```python
 # creds.py — do not commit this file
-host = "your-rds-endpoint"
+host = "project-1.cspw0ao8q126.us-east-1.rds.amazonaws.com"
 user = "admin"
 password = "your-password"
-db = "your-database-name"
+db = "movies"
 ```
 
 ---
