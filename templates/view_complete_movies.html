@@ -25,10 +25,10 @@
                 {% item in data %}
                     {% movie in item['Movies'] %}
                         <tr>
-                            <td>{{ item['User'] }}</td>
-                            <td>{{ item['Name'] }}</td>
-                            <td>{{ item['Rating'] }}</td>
-                            <td>{{ item['Review'] }}</td>
+                            <td>{{ movie['User'] }}</td>
+                            <td>{{ movie['Name'] }}</td>
+                            <td>{{ movie['Rating'] }}</td>
+                            <td>{{ movie['Review'] }}</td>
                         </tr>
                     {% endfor %}
                 {% endfor %}
