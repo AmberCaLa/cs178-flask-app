@@ -83,7 +83,7 @@ def add_complete_movie():
 
         flash('Completed movie recorded!', 'success')  
 
-        return redirect(url_for('home.html'))
+        return redirect(url_for('home'))
     else:
         return render_template('add_complete_movie.html')
 
