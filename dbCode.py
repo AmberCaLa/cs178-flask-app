@@ -162,7 +162,7 @@ def update_completed(user, movie_title, rating, review):
         print("error adding completed movie")
 
 
-def delete_reviews(user):
+def delete_db_reviews(user):
     table = get_table
 
     table.delete_item(

@@ -116,7 +116,7 @@ def delete_reviews():
     if request.method == 'POST':
         user = request.form['user']
 
-        delete_reviews(user)
+        delete_db_reviews(user)
 
         flash('Reviews deleted!', 'success') 
 
