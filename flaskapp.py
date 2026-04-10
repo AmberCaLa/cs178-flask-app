@@ -88,7 +88,11 @@ def add_complete_movie():
         return render_template('add_complete_movie.html')
 
 
+@app.route('/view-complete-movies')
+def view_complete_movies():
+    data = return_all_movies()
 
+    return render_template('view_complete_movies.html', data = data)
 
 
 # these two lines of code should always be the last in the file

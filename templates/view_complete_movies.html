@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Completed Movies</title>
+    <!-- Bootstrap CSS for styling the table -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="mt-3">
+        <a href="/" class = "btn btn-primary">Return</a>
+        
+    <div class="container">
+        <h2 class="mt-5">Completed Movies</h2>
+
+        <table class="table table-bordered table-striped mt-3">
+            <thead class="thead-dark"> <!-- creates a dark background for the table header -->
+                <tr>
+                    <th>User</th>
+                    <th>Movie</th>
+                    <th>Rating</th>
+                    <th>Review</th>
+                </tr>
+            </thead>
+            <tbody> <!-- table body -- loop through all of the users -->
+                {% item in data %}
+                    {% movie in item['Movies'] %}
+                        <tr>
+                            <td>{{ item['User'] }}</td>
+                            <td>{{ item['Name'] }}</td>
+                            <td>{{ item['Rating'] }}</td>
+                            <td>{{ item['Review'] }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+ </body>
+</html>
