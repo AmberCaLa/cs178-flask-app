@@ -90,7 +90,7 @@ def insert_movie(id, name, release):
     db_changes("""
         INSERT INTO movie(movie_id, title, release_date)
         VALUES (%s, %s, %s)
-        """
+        """,
     (id, name, release, ))
 
     return "Inserted"
