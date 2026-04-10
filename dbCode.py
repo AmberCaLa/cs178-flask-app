@@ -34,7 +34,7 @@ def execute_query(query, args=()):
     return rows
 
 
-#The following function was generate with help from Claude
+#The following function was generated with help from Claude
 def db_changes(query, args=()):
     """
     Executes a change to database
@@ -94,7 +94,7 @@ def insert_movie(id, name, release):
         """,
     (id, name, release, ))
 
-    return "Inserted"
+    return 
 
 
 #Non-Relational Database
@@ -106,12 +106,20 @@ def get_table():
 
 
 def return_movie(name, info):
+    """
+    returns data for specific user review
+    """
+
     return { 'Movie' : name,
     'Rating' : info.get("Rating", "Rating Unavailable"),
     'Review' : info.get("Review", "Review Unavailable")}
 
 
 def return_all_movies():
+    """
+    Returns all reviews for every user
+    """
+
     table = get_table()
     
     response = table.scan()
@@ -132,6 +140,10 @@ def return_all_movies():
 
 
 def create_movie(user, movie_title, rating, review):
+    """
+    Creates a new user with their first review
+    """
+
     table = get_table()
 
     table.put_item(
@@ -145,6 +157,9 @@ def create_movie(user, movie_title, rating, review):
 
 
 def update_completed(user, movie_title, rating, review):
+    """Allows users to add reviews
+    """
+
     table = get_table()
 
     try:
@@ -163,6 +178,10 @@ def update_completed(user, movie_title, rating, review):
 
 
 def delete_db_reviews(user):
+    """
+    Delete all reviews for a user
+    """
+
     table = get_table()
 
     table.delete_item(
