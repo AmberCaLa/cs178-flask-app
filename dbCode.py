@@ -163,7 +163,7 @@ def update_completed(user, movie_title, rating, review):
 
 
 def delete_db_reviews(user):
-    table = get_table
+    table = get_table()
 
     table.delete_item(
         Key = {
