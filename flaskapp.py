@@ -88,7 +88,7 @@ def add_complete_movie():
         return render_template('add_complete_movie.html')
     
 
-@app.route('/update-completed-movies')
+@app.route('/update-completed-movies', methods=['GET', 'POST'])
 def update_movies():
     if request.method == 'POST':
         user_name = request.form['user_name']
