@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Add Complete Movie</title>
+    <title>Update Reviews</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   </head>
   <body>
     <a href="/" class = "btn btn-primary">Return</a>
-    <h1>Please enter the following info to add a user.</h1>
-    <form action="{{ url_for('add_complete_movie') }}" method="post">
+    <h1>Please enter the following info to log a movie.</h1>
+    <form action="{{ url_for('update_completed_movies') }}" method="post">
       <label for="user_name">What is your username?:</label><br />
       <input type="text" id="user_name" name="user_name" required /><br />
       <label for="movie_name">What movie did you complete?:</label><br />

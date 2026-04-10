@@ -81,11 +81,28 @@ def add_complete_movie():
                 
         create_movie(user_name, movie_name, rating, review)
 
-        flash('Completed movie recorded!', 'success')  
+        flash('New user added!', 'success')  
 
         return redirect(url_for('home'))
     else:
         return render_template('add_complete_movie.html')
+    
+
+@app.route('/update-completed-movies')
+def update_movies():
+    if request.method == 'POST':
+        user_name = request.form['user_name']
+        movie_name = request.form["movie_name"]
+        rating = request.form['rating']
+        review = request.form['review']
+                
+        update_completed(user_name, movie_name, rating, review)
+
+        flash('Completed movie recorded!', 'success')  
+
+        return redirect(url_for('home'))
+    else:
+        return render_template('update_completed_movies.html')
 
 
 @app.route('/view-complete-movies')

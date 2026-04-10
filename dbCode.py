@@ -142,3 +142,19 @@ def create_movie(user, movie_title, rating, review):
                 'Review' : review
             }}})
     return
+
+
+def update_completed(user, movie_title, rating, review):
+    table = get_table()
+
+    try:
+        table.update_item(
+            Key={'User': user},
+            UpdateExpression="SET Movies.#movie = :info",
+            ExpressionAttributeNames={'#movie' : movie_title},
+            ExpressionAttributeValues = {'info' : {
+                'Rating' : rating,
+                'Review' : review
+            }})
+    except:
+        print("error adding completed movie")
