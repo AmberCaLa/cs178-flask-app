@@ -129,3 +129,16 @@ def return_all_movies():
         data.append({'User' : user, 'Movies' : completed_movies})
     
     return data
+
+
+def create_movie(user, movie_title, rating, review):
+    table = get_table()
+
+    table.put_item(
+        Item = { 'User' : user,
+        'Movies' : {
+            movie_title : {
+                'Rating' : rating,
+                'Review' : review
+            }}})
+    return

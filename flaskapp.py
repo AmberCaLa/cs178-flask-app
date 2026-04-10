@@ -79,7 +79,7 @@ def add_complete_movie():
         rating = request.form['rating']
         review = request.form['review']
                 
-        complete_movie(user_name, movie_name, rating, review)
+        create_movie(user_name, movie_name, rating, review)
 
         flash('Completed movie recorded!', 'success')  
 
