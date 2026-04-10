@@ -40,7 +40,7 @@ def db_changes(query, args=()):
     """
 
     conn = get_conn()
-    cur = conn.cursur(pymysql.cursors.DictCursor)
+    cur = conn.cursor(pymysql.cursors.DictCursor)
     cur.execute(query, args)
     conn.commit()
     cur.close()
