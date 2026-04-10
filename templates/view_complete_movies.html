@@ -22,8 +22,8 @@
                 </tr>
             </thead>
             <tbody> <!-- table body -- loop through all of the users -->
-                {% item in data %}
-                    {% movie in item['Movies'] %}
+                {% for item in data %}
+                    {% for movie in item['Movies'] %}
                         <tr>
                             <td>{{ movie['User'] }}</td>
                             <td>{{ movie['Name'] }}</td>
