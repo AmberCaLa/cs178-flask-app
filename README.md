@@ -44,7 +44,7 @@ ProjectOne/
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   git clone https://github.com/AmberCaLA/cs178-flask-app
    cd your-repo-name
    ```
 
@@ -71,10 +71,8 @@ ProjectOne/
 The app is deployed on an AWS EC2 instance. To view the live version:
 
 ```
-http://[your-ec2-public-ip]:8080
+http://54.146.202.127:8080
 ```
-
-_(Note: the EC2 instance may not be running after project submission.)_
 
 ---
 
