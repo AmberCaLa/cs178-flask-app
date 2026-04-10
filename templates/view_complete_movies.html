@@ -25,8 +25,8 @@
                 {% for item in data %}
                     {% for movie in item['Movies'] %}
                         <tr>
-                            <td>{{ movie['User'] }}</td>
-                            <td>{{ movie['Name'] }}</td>
+                            <td>{{ item['User'] }}</td>
+                            <td>{{ movie['Movie'] }}</td>
                             <td>{{ movie['Rating'] }}</td>
                             <td>{{ movie['Review'] }}</td>
                         </tr>
